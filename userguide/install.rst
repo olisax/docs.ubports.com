@@ -18,8 +18,46 @@ These instructions will help you install our OS on the "Core Devices" such as th
 Switch from Android to Ubuntu Touch
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-* On any Linux distro with Snaps: Use the `magic-device-tool <https://github.com/MariusQuabeck/magic-device-tool>`_. Please read the instructions carefully!
-* On Windows or MacOS (**beta**!): Use the `UBports GUI installer <https://github.com/ubports/ubports-installer/releases>`_
+Install ADB drivers on computer
+-------------------------------
+
+To get adb working on your **windows** pc, follow `this guide <https://forum.fairphone.com/t/pencil2-adb-on-the-fairphone-2-windows-driver/11529>`_.
+
+To get adb working on your **linux** pc, follow `those <https://ubports.com/forum/wiki-2/question/how-to-use-adb-from-ubuntu-desktop-3>`_ instructions::
+
+    sudo apt-get install android-tools-adb android-tools-fastboot
+    
+First you have to install ubuntu-phablet-tools::
+
+    sudo apt-get install phablet-tools
+    
+Than you have to add your device to your desktop. In my case for the Fairphone 2::
+
+    echo "0x2ae5" > ~/.android/adb_usb.ini
+    
+Even if you own a One Plus One (OPO) you have to do add it::
+
+    echo "0x9d17" >> ~/.android/adb_usb.ini
+    
+Other devices don't need to be added manually.
+
+Then you have to kill the adb server::
+
+    adb kill-server
+
+
+Enable developer mode and USB debugging on device
+-------------------------------------------------
+
+Go to settings, scroll all the way down to About this device (or about this phone) select that, scroll down to build number, and start tapping that fast over and over until it says you've unlocked developer.
+Then go back up one level and now there is a new menu option called options for developers. Select that, then scroll down to USB debugging, switch that on.
+
+When you plug the USB cable, change the USB mode to MTP (default was charge only). Look at your device screen : you should see a pop-up asking if you trust the fingerprint of your computer. After accepting that, it shouldn't be "unauthorized" anymore.
+
+Now adb should work on your phones side. 
+Check if you see it correctly from your computer: with "adb devices" you get your device listed.
+
+* On Linux, Windows or MacOS: Use the `UBports GUI installer <https://github.com/ubports/ubports-installer/releases>`_
 
 Official "Ubuntu for Devices" devices
 -------------------------------------
